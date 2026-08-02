@@ -28,9 +28,11 @@ const EquipmentSection = lazy(() => import("./components/EquipmentSection"));
 const AboutSection = lazy(() => import("./components/AboutSection"));
 const RepairRequestForm = lazy(() => import("./components/RepairRequestForm"));
 const Footer = lazy(() => import("./components/Footer"));
-// При необходимости включить обратно: закомментируйте импорт ниже
-// и блок <Suspense><PromoPopup /></Suspense> в Home-компоненте.
-// const PromoPopup = lazy(() => import("./components/PromoPopup"));
+const PromoPopup = lazy(() => import("./components/PromoPopup"));
+
+// Флаг включения промо-окна берётся из .env: REACT_APP_ENABLE_PROMO_POPUP=true|false
+const PROMO_POPUP_ENABLED =
+  String(process.env.REACT_APP_ENABLE_PROMO_POPUP || "").toLowerCase() === "true";
 
 // ── Lazy-loading всех роутов ────────────────────────────────────────────────
 // Каждая страница теперь грузится отдельным чанком только при переходе на неё.
@@ -126,11 +128,12 @@ const Home = () => {
       <LazyLoad placeholder={<SectionPlaceholder height="300px" />} minHeight="300px">
         <Footer />
       </LazyLoad>
-      {/* Промо-окно аренды Kyocera M2035dn отключено. Для включения раскомментируйте импорт PromoPopup выше и блок ниже.
-      <Suspense fallback={null}>
-        <PromoPopup />
-      </Suspense>
-      */}
+      {/* Промо-окно управляется через .env: REACT_APP_ENABLE_PROMO_POPUP */}
+      {PROMO_POPUP_ENABLED && (
+        <Suspense fallback={null}>
+          <PromoPopup />
+        </Suspense>
+      )}
     </div>
   );
 };

@@ -31,7 +31,9 @@ export const COMPANY_INFO = {
 // Organization Schema
 export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  // Двойной тип: явно указываем LocalBusiness для поисковых агрегаторов
+  // и сохраняем ProfessionalService для точной классификации отрасли.
+  "@type": ["LocalBusiness", "ProfessionalService"],
   "@id": "https://complexprint.ru/#organization",
   name: COMPANY_INFO.name,
   legalName: COMPANY_INFO.legalName,
@@ -61,7 +63,10 @@ export const getOrganizationSchema = () => ({
     longitude: COMPANY_INFO.geo.longitude
   },
   
-  // Часы работы
+  // Часы работы (краткая строковая форма — понятна большинству парсеров)
+  openingHours: "Mo-Su 09:00-21:00",
+
+  // Часы работы (расширенная спецификация — понятна Google Rich Results)
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -71,17 +76,40 @@ export const getOrganizationSchema = () => ({
     }
   ],
   
-  // Область обслуживания
+  // Область обслуживания: город + область + все районы Москвы + города Подмосковья
   areaServed: [
-    {
-      "@type": "City",
-      name: "Москва"
-    },
-    {
-      "@type": "State",
-      name: "Московская область"
-    }
+    { "@type": "City", name: "Москва" },
+    { "@type": "State", name: "Московская область" },
+    // Административные округа Москвы
+    { "@type": "AdministrativeArea", name: "Центральный административный округ (ЦАО)" },
+    { "@type": "AdministrativeArea", name: "Северный административный округ (САО)" },
+    { "@type": "AdministrativeArea", name: "Северо-Восточный административный округ (СВАО)" },
+    { "@type": "AdministrativeArea", name: "Восточный административный округ (ВАО)" },
+    { "@type": "AdministrativeArea", name: "Юго-Восточный административный округ (ЮВАО)" },
+    { "@type": "AdministrativeArea", name: "Южный административный округ (ЮАО)" },
+    { "@type": "AdministrativeArea", name: "Юго-Западный административный округ (ЮЗАО)" },
+    { "@type": "AdministrativeArea", name: "Западный административный округ (ЗАО)" },
+    { "@type": "AdministrativeArea", name: "Северо-Западный административный округ (СЗАО)" },
+    { "@type": "AdministrativeArea", name: "Зеленоградский административный округ (ЗелАО)" },
+    { "@type": "AdministrativeArea", name: "Троицкий и Новомосковский административные округа (ТиНАО)" },
+    // Ближайшее Подмосковье
+    { "@type": "City", name: "Химки" },
+    { "@type": "City", name: "Красногорск" },
+    { "@type": "City", name: "Мытищи" },
+    { "@type": "City", name: "Люберцы" },
+    { "@type": "City", name: "Балашиха" }
   ],
+
+  // Радиус обслуживания (от адреса до 60 км)
+  serviceArea: {
+    "@type": "GeoCircle",
+    geoMidpoint: {
+      "@type": "GeoCoordinates",
+      latitude: COMPANY_INFO.geo.latitude,
+      longitude: COMPANY_INFO.geo.longitude
+    },
+    geoRadius: "60000"
+  },
   
   // Рейтинг
   aggregateRating: {
@@ -106,7 +134,11 @@ export const getOrganizationSchema = () => ({
   vatID: COMPANY_INFO.vatID,
   
   // Ценовой диапазон
-  priceRange: "₽₽"
+  priceRange: "₽₽",
+
+  // Способы оплаты и валюта
+  paymentAccepted: ["Наличные", "Банковская карта", "Безналичный расчёт"],
+  currenciesAccepted: "RUB"
 });
 
 // WebSite Schema с поиском
