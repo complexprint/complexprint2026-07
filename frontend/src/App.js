@@ -28,7 +28,9 @@ const EquipmentSection = lazy(() => import("./components/EquipmentSection"));
 const AboutSection = lazy(() => import("./components/AboutSection"));
 const RepairRequestForm = lazy(() => import("./components/RepairRequestForm"));
 const Footer = lazy(() => import("./components/Footer"));
-const PromoPopup = lazy(() => import("./components/PromoPopup"));
+// При необходимости включить обратно: закомментируйте импорт ниже
+// и блок <Suspense><PromoPopup /></Suspense> в Home-компоненте.
+// const PromoPopup = lazy(() => import("./components/PromoPopup"));
 
 // ── Lazy-loading всех роутов ────────────────────────────────────────────────
 // Каждая страница теперь грузится отдельным чанком только при переходе на неё.
@@ -124,9 +126,11 @@ const Home = () => {
       <LazyLoad placeholder={<SectionPlaceholder height="300px" />} minHeight="300px">
         <Footer />
       </LazyLoad>
+      {/* Промо-окно аренды Kyocera M2035dn отключено. Для включения раскомментируйте импорт PromoPopup выше и блок ниже.
       <Suspense fallback={null}>
         <PromoPopup />
       </Suspense>
+      */}
     </div>
   );
 };
