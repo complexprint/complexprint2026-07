@@ -115,6 +115,63 @@ const Reviews = () => {
         <link rel="canonical" href="https://complexprint.ru/reviews" />
         <meta name="robots" content="index, follow" />
         <meta name="keywords" content="отзывы ремонт принтеров, отзывы Комплекс Принт, сервис принтеров Москва отзывы, ремонт МФУ отзывы" />
+
+        {/*
+          JSON-LD для страницы отзывов.
+          Оборачиваем LocalBusiness (тот же @id, что и в глобальной Organization-схеме,
+          чтобы Google/Яндекс склеили сущности) с AggregateRating и массивом Review.
+          Это даёт звёзды в поисковой выдаче под сниппетом.
+        */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": ["LocalBusiness", "ProfessionalService"],
+            "@id": "https://complexprint.ru/#organization",
+            name: "Комплекс Принт",
+            url: "https://complexprint.ru/",
+            image: "https://complexprint.ru/favicon.svg",
+            telephone: "+79911857289",
+            priceRange: "₽₽",
+            address: {
+              "@type": "PostalAddress",
+              streetAddress: "Абрамцевская 11 к1 стр3",
+              addressLocality: "Москва",
+              postalCode: "127576",
+              addressCountry: "RU",
+            },
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.9",
+              bestRating: "5",
+              worstRating: "1",
+              ratingCount: String(testimonials.length),
+              reviewCount: "500",
+            },
+            review: testimonials.map((t) => ({
+              "@type": "Review",
+              author: {
+                "@type": "Organization",
+                name: t.company,
+              },
+              datePublished: `${t.date}-01-01`,
+              reviewBody: t.textReview,
+              reviewRating: {
+                "@type": "Rating",
+                ratingValue: String(t.rating),
+                bestRating: "5",
+                worstRating: "1",
+              },
+              itemReviewed: {
+                "@type": "Service",
+                name: "Ремонт и обслуживание принтеров и МФУ",
+                provider: {
+                  "@type": "LocalBusiness",
+                  name: "Комплекс Принт",
+                },
+              },
+            })),
+          })}
+        </script>
       </Helmet>
 
       <Header />

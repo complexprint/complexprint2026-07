@@ -20,39 +20,15 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import puppeteer from "puppeteer";
+import { ROUTES as ROUTES_CONFIG } from "./routes.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const BUILD_DIR = path.resolve(__dirname, "..", "build");
 const PORT = 45678;
 const HOST = "127.0.0.1";
 
-// Список маршрутов для пререндера (24 страницы — из sitemap.xml + App.js)
-const ROUTES = [
-  "/",
-  "/arenda-kyocera-m2035dn",
-  "/komputery-i-komplektuyushchie",
-  "/abonentskoe-obsluzhivanie",
-  "/razovyy-remont",
-  "/mps-autsorsing-pechati",
-  "/pokopiynoe-obsluzhivanie",
-  "/ceny",
-  "/remont-printerov-hp",
-  "/remont-printerov-canon",
-  "/remont-printerov-kyocera",
-  "/remont-printerov-ricoh",
-  "/remont-printerov-konica-minolta",
-  "/remont-printerov-xerox",
-  "/faq",
-  "/print-defects-guide",
-  "/printer-error-guide",
-  "/printer-selection",
-  "/rayony-moskvy",
-  "/about-us",
-  "/contacts",
-  "/reviews",
-  "/user-agreement",
-  "/terms-of-service",
-];
+// Список маршрутов для пререндера — из общего конфига scripts/routes.mjs.
+const ROUTES = ROUTES_CONFIG.filter((r) => !r.noPrerender).map((r) => r.path);
 
 // Экранирование текста для безопасной вставки в HTML (для <title>).
 function escapeHtml(s) {
