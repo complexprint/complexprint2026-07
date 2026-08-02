@@ -23,6 +23,7 @@ import {
 
 // ── Below-the-fold компоненты главной — грузим только при скролле к ним ─────
 // Это уменьшает initial JS-bundle и TBT.
+const SeoTextSection = lazy(() => import("./components/SeoTextSection"));
 const EquipmentSection = lazy(() => import("./components/EquipmentSection"));
 const AboutSection = lazy(() => import("./components/AboutSection"));
 const RepairRequestForm = lazy(() => import("./components/RepairRequestForm"));
@@ -103,6 +104,11 @@ const Home = () => {
         {/* Первый экран — рендерим синхронно (важно для LCP) */}
         <HeroSection />
         <ServicesSection />
+
+        {/* SEO-контент — подробное описание компании и услуг для поисковых систем и пользователей */}
+        <LazyLoad placeholder={<SectionPlaceholder height="800px" />} minHeight="800px">
+          <SeoTextSection />
+        </LazyLoad>
 
         {/* Ниже первого экрана — грузим только при приближении к viewport */}
         <LazyLoad placeholder={<SectionPlaceholder height="500px" />} minHeight="500px">
