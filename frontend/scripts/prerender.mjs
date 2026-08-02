@@ -197,6 +197,26 @@ async function prerenderRoute(browser, route) {
       { timeout: 30000 }
     );
 
+    // 1.1. Ждём загрузки самого маршрута (за Suspense). Признак: в документе
+    //   появился <h1> или <article> внутри <main>, ИЛИ document.title перестал
+    //   быть дефолтным (Helmet страницы уже отработал).
+    //   Fallback по timeout — не блокируем весь пре-рендер, просто идём дальше.
+    const initialTitle = "Комплекс Принт - Ремонт и обслуживание принтеров в Москве";
+    await page
+      .waitForFunction(
+        (initTitle) => {
+          const hasH1InMain = !!document.querySelector("main h1, main article h1");
+          const titleChanged =
+            document.title && document.title !== initTitle;
+          return hasH1InMain || titleChanged;
+        },
+        { timeout: 15000 },
+        initialTitle
+      )
+      .catch(() => {
+        /* не критично — идём дальше, что есть, то и снимем */
+      });
+
     // 2. Триггерим IntersectionObserver'ы — скроллим до низа шагами.
     await page.evaluate(async () => {
       const wait = (ms) => new Promise((r) => setTimeout(r, ms));

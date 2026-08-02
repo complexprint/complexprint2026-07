@@ -55,6 +55,46 @@ export const ROUTES = [
   // ─── География обслуживания ───────────────────────────────────────────────
   { path: "/rayony-moskvy", priority: 0.7, changefreq: "monthly" },
 
+  // ─── Аналитика ────────────────────────────────────────────────────────────
+  { path: "/analytics", priority: 0.85, changefreq: "weekly" },
+  {
+    path: "/analytics/rezinovye-ubijcy-printery-tajvan",
+    priority: 0.75,
+    changefreq: "monthly",
+    images: [
+      {
+        loc: "https://complexprint.ru/images/analytics/cover-rubber-killers.jpg",
+        title:
+          "Резиновые убийцы, или Почему ваш принтер зажевал отчёт, а Тайвань снова всех спас",
+      },
+    ],
+  },
+  {
+    path: "/analytics/pochemu-vash-printer-umiraet",
+    priority: 0.75,
+    changefreq: "monthly",
+    images: [
+      {
+        loc: "https://complexprint.ru/images/analytics/cover-toner-secrets.jpg",
+        title: "Почему ваш принтер умирает, а вы даже не понимаете почему",
+      },
+    ],
+  },
+  {
+    path: "/analytics/kak-kitajskij-printer-sel-rynok",
+    priority: 0.75,
+    changefreq: "monthly",
+    images: [
+      {
+        loc: "https://complexprint.ru/images/analytics/cover-china-market.jpg",
+        title: "Как китайский принтер съел российский рынок",
+      },
+    ],
+  },
+
+  // ─── Видео / портфолио работ ──────────────────────────────────────────────
+  { path: "/video", priority: 0.75, changefreq: "monthly" },
+
   // ─── О компании / Контакты / Отзывы ───────────────────────────────────────
   { path: "/about-us", priority: 0.7, changefreq: "monthly" },
   { path: "/contacts", priority: 0.7, changefreq: "monthly" },

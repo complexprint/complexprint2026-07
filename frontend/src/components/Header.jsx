@@ -192,6 +192,9 @@ const Header = () => {
                   <DropdownMenuItem onClick={() => goToPage('/reviews')} className={dropdownItemCls}>
                     Отзывы о нас
                   </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => goToPage('/video')} className={dropdownItemCls}>
+                    Видео наших работ
+                  </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={() => window.open('https://dzen.ru/complexprint', '_blank', 'noopener')}
                     className={dropdownItemCls}
@@ -200,6 +203,10 @@ const Header = () => {
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+
+              <button onClick={() => goToPage('/analytics')} className={navItemBase}>
+                Аналитика
+              </button>
 
               {/* Справочники */}
               <DropdownMenu>
@@ -349,7 +356,10 @@ const Header = () => {
               <div className="px-4 py-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">О нас</div>
               <button onClick={() => goToPage('/about-us')} className="px-6 py-3 text-left font-montserrat font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">О нас</button>
               <button onClick={() => goToPage('/reviews')} className="px-6 py-3 text-left font-montserrat font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">Отзывы о нас</button>
+              <button onClick={() => goToPage('/video')} className="px-6 py-3 text-left font-montserrat font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">Видео наших работ</button>
               <button onClick={() => { window.open('https://dzen.ru/complexprint', '_blank', 'noopener'); setIsMenuOpen(false); }} className="px-6 py-3 text-left font-montserrat font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">Наш блог на Дзен</button>
+
+              <button onClick={() => goToPage('/analytics')} className="px-4 py-3 text-left font-montserrat font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200">Аналитика</button>
 
               {/* Справочники */}
               <div className="px-4 py-2 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Справочники</div>

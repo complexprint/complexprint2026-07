@@ -60,6 +60,9 @@ const MpsService = lazy(() => import("./pages/MpsService"));
 const PokopiynoeObsluzhivanie = lazy(() => import("./pages/PokopiynoeObsluzhivanie"));
 const KyoceraRental = lazy(() => import("./pages/KyoceraRental"));
 const ComputersAndParts = lazy(() => import("./pages/ComputersAndParts"));
+const Analytics = lazy(() => import("./pages/Analytics"));
+const AnalyticsArticle = lazy(() => import("./pages/AnalyticsArticle"));
+const Video = lazy(() => import("./pages/Video"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Лёгкий fallback пока чанк страницы скачивается
@@ -170,6 +173,9 @@ function App() {
               <Route path="/pokopiynoe-obsluzhivanie" element={<PokopiynoeObsluzhivanie />} />
               <Route path="/arenda-kyocera-m2035dn" element={<KyoceraRental />} />
               <Route path="/komputery-i-komplektuyushchie" element={<ComputersAndParts />} />
+              <Route path="/analytics" element={<Analytics />} />
+              <Route path="/analytics/:slug" element={<AnalyticsArticle />} />
+              <Route path="/video" element={<Video />} />
               {/* 404 - должен быть последним */}
               <Route path="*" element={<NotFound />} />
             </Routes>
